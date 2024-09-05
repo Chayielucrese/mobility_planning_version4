@@ -1,0 +1,109 @@
+
+import 'package:get/get_navigation/src/routes/get_route.dart';
+
+import 'package:mobility_planning_version4/Routes/app_routes.dart';
+import 'package:mobility_planning_version4/Screens/Account_Activation/activation_binding.dart';
+import 'package:mobility_planning_version4/Screens/Account_Activation/activation_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Notifications/notification_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Notifications/notifiication_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Profile/profile_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Profile/profile_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Request/request_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Request/request_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Statistics/statastics_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Statistics/statistics_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subcription_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subcription_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form_binding.dart/subscription_form_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form_binding.dart/subscription_form_ctrl.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form_binding.dart/subscription_form_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Upload/upload_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Upload/upload_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Vehicles/vehicle_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Vehicles/vehicle_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/Vehicle_tabview/document_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/Vehicle_tabview/document_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/view_vehicle_biding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/view_vehicle_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Welcome/welcome_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Welcome/welcome_screen.dart';
+import 'package:mobility_planning_version4/Screens/Login/login_binding.dart';
+import 'package:mobility_planning_version4/Screens/Login/login_screen.dart';
+import 'package:mobility_planning_version4/Screens/SignUp/signup_binding.dart';
+import 'package:mobility_planning_version4/Screens/SignUp/signup_screen.dart';
+import 'package:mobility_planning_version4/Screens/Welcome/welcome_binding.dart';
+import 'package:mobility_planning_version4/Screens/Welcome/welcome_screen.dart';
+
+class AppPages {
+  static final pages = [
+GetPage(
+        name: AppRoutes.welcome,
+        page: () => const WelcomeScreen(),
+        binding: WelcomeBinding()),
+          GetPage(
+        name: AppRoutes.signup,
+        page: () => const SignUpPage(),
+        binding: SignupBinding()),
+           GetPage(
+        name: AppRoutes.activation,
+        page: () => const ActivationPage(),
+        binding: ActivationBinding()),
+         GetPage(
+        name: AppRoutes.clientwelcome,
+        page: () => const ClientHomePage(),
+        binding: ClientWelcomeBinding()),
+               GetPage(
+        name: AppRoutes.login,
+        page: () => const LoginPage(),
+        binding: LoginBinding()),
+         GetPage(
+        name: AppRoutes.driverupload,
+        page: () => const DriverUploadPage(),
+        binding: DriverUploadBinding()),
+            GetPage(
+        name: AppRoutes.driverwelcome,
+        page: () =>  DriverHomePage(),
+        binding: DriverWelcomeBinding()),
+            GetPage(
+        name: AppRoutes.driverStats,
+        page: () =>  DriverDashboardPage(),
+        binding: DriverDashboardBinding()),
+        
+          GetPage(
+        name: AppRoutes.driverprofile,
+        page: () =>   DriverProfilePage(),
+        binding: DriverProfileBinding()),
+          GetPage(
+        name: AppRoutes.viewvehicle,
+        page: () => const ViewVehiclePage(),
+        binding: ViewVehicleBinding()),
+         GetPage(
+        name: AppRoutes.drivervehicle,
+        page: () => const DriverVehiclePage(),
+        binding: DriverVehicleBinding()),
+         GetPage(
+        name: AppRoutes.driverrequest,
+        
+        page: () =>  DriverRequestPage(),
+        binding: DriverRequestBinding()),
+         GetPage(
+        name: AppRoutes.driversubscription,
+        page: () =>  const DriverSubscriptionPage(),
+        binding: DriverSubscriptionBinding()),
+            GetPage(
+        name: AppRoutes.subcriptionform,
+        page: () =>   const SubscribeNowPage(),
+        binding: SubscriptionFormBinding()),
+         GetPage(
+        name: AppRoutes.drivernotification,
+        page: () =>    BookingNotificationsPage(),
+        binding: NotifiicationBinding()),
+
+           GetPage(
+        name: AppRoutes.driveruploadeddocuments,
+        page: () =>    DriverDocumentsPage(),
+        binding: DriverVehicleDocumentBinding()),
+    
+  ];}
