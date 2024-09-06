@@ -4,8 +4,14 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Account_Activation/activation_binding.dart';
 import 'package:mobility_planning_version4/Screens/Account_Activation/activation_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RequestForm/request_form_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RequestForm/request_form_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RideDetails/ride_detail_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RideDetails/ride_details_binding.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_binding.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/client_profile/Client_profile_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/client_profile/client_profile_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Notifications/notification_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Notifications/notifiication_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Profile/profile_binding.dart';
@@ -16,9 +22,8 @@ import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Statistics
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Statistics/statistics_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subcription_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subcription_screen.dart';
-import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form_binding.dart/subscription_form_binding.dart';
-import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form_binding.dart/subscription_form_ctrl.dart';
-import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form_binding.dart/subscription_form_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form/subscription_form_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form/subscription_form_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Upload/upload_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Upload/upload_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Vehicles/vehicle_binding.dart';
@@ -27,6 +32,10 @@ import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehic
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/Vehicle_tabview/document_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/view_vehicle_biding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/View_vehicles/view_vehicle_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Wallet/wallet_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Wallet/wallet_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Wallet_Recharge/recharge_binding.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Wallet_Recharge/recharge_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Welcome/welcome_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Welcome/welcome_screen.dart';
 import 'package:mobility_planning_version4/Screens/Login/login_binding.dart';
@@ -93,17 +102,38 @@ GetPage(
         page: () =>  const DriverSubscriptionPage(),
         binding: DriverSubscriptionBinding()),
             GetPage(
-        name: AppRoutes.subcriptionform,
-        page: () =>   const SubscribeNowPage(),
+        name: AppRoutes.subscriptionform,
+        page: () =>    SubscribeNowPage(),
         binding: SubscriptionFormBinding()),
          GetPage(
         name: AppRoutes.drivernotification,
-        page: () =>    BookingNotificationsPage(),
+        page: () =>    const BookingNotificationsPage(),
         binding: NotifiicationBinding()),
-
+   GetPage(
+        name: AppRoutes.userwallet,
+        page: () =>   UserWalletPage(),
+        binding: UserWalletBinding()),
            GetPage(
         name: AppRoutes.driveruploadeddocuments,
         page: () =>    DriverDocumentsPage(),
         binding: DriverVehicleDocumentBinding()),
     
+      GetPage(
+        name: AppRoutes.clientprofile,
+        page: () =>   ClientProfilePage(),
+        binding: ClientProfileBinding()),
+
+          GetPage(
+        name: AppRoutes.ridedetails,
+        page: () =>   RideDetailsPage("car", rideType: 'Car',),
+        binding: RideDetailBinding()),
+
+         GetPage(
+        name: AppRoutes.reservationscreen,
+        page: () =>   const ReservationScreen(),
+        binding: RequestFormBinding()),
+            GetPage(
+        name: AppRoutes.walletrecharge,
+        page: () =>   WalletRechargePage(),
+        binding: WalletRechargeBinding()),
   ];}

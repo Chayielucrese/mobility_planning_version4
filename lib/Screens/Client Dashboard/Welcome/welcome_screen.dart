@@ -49,7 +49,7 @@ class RideSelectionScreen extends StatelessWidget {
                   leading: Icon(Icons.person, color: Colors.pink),
                   title: Text('Profile', style: TextStyle(color: Colors.black)),
                   onTap: () {
-                    // Get.toNamed(AppRoutes.clientprofile);
+                    Get.toNamed(AppRoutes.clientprofile);
                   },
                 ),
                 ListTile(
@@ -99,7 +99,7 @@ class RideSelectionScreen extends StatelessWidget {
                       right: 16,
                       child: GestureDetector(
                         onTap: () {
-                          // Get.toNamed(AppRoutes.clientprofile);
+                          Get.toNamed(AppRoutes.clientprofile);
                         },
                         child: CircleAvatar(
                           radius: 24,
@@ -236,7 +236,7 @@ class RideSelectionScreen extends StatelessWidget {
 
     Timer(const Duration(seconds: 5), () {
       Navigator.of(context).pop();
-      // Get.toNamed(AppRoutes.reservationscreen);
+      Get.toNamed(AppRoutes.reservationscreen);
     });
   }
 }

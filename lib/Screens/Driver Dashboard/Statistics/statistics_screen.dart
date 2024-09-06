@@ -186,7 +186,7 @@ class DriverDashboardPage extends StatelessWidget {
 class DocumentCheck extends StatelessWidget {
   final bool isDocumentVerified;
 
-  DocumentCheck({required this.isDocumentVerified}); // Receive parameter
+  DocumentCheck({required this.isDocumentVerified}); 
 
   @override
   Widget build(BuildContext context) {

@@ -6,18 +6,17 @@ import 'package:http/http.dart' as http;
 import 'package:mobility_planning_version4/Config/default_api_link.dart';
 import 'package:mobility_planning_version4/Controller/app_ctrl.dart';
 import 'package:mobility_planning_version4/Controller/token_ctrl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverSubscriptionController extends AppController {
   TokenController tokens = Get.put(TokenController());
 
   var subscriptionPlans = <Map<String, dynamic>>[].obs;
 
- void onInit() {
+  void onInit() {
     super.onInit();
- subscriptionDetails();
-
+    subscriptionDetails();
   }
-
 
   String name = "";
   String description = "";
@@ -46,8 +45,8 @@ class DriverSubscriptionController extends AppController {
             response['reservationTypeList'].isNotEmpty) {
           final List<dynamic> subScriptionList =
               response['reservationTypeList'];
-   
-               subscriptionPlans.value = subScriptionList.map((subscription) {
+
+          subscriptionPlans.value = subScriptionList.map((subscription) {
             return {
               'id': subscription['id'],
               'name': subscription['name'],
@@ -70,5 +69,14 @@ class DriverSubscriptionController extends AppController {
     } catch (e) {
       print("Error occurred while fetching subscriptionDetails: $e");
     }
+  }
+
+  Future<void> getSubcriptionId(int id) async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setInt("id", id);
+  }
+    Future<void> getSubcriptionName(String name) async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setString("name", name);
   }
 }

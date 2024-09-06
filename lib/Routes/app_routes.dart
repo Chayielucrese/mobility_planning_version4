@@ -13,6 +13,11 @@ class AppRoutes {
   static String driverrequest = '/driverrequest';
   static String driveruploadeddocuments = '/driveruploadeddocuments';
   static String driversubscription = '/driversubscription';
-  static String subcriptionform = '/subcriptionform';
+  static String subscriptionform = '/subscriptionform';
   static String drivernotification = '/drivernotification';
+  static String clientprofile = '/clientprofile';
+  static String ridedetails = '/ridedetails';
+  static String reservationscreen = '/reservationscreen';
+  static String userwallet = '/userwallet';
+   static String walletrecharge = '/walletrecharge';
 }
