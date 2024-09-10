@@ -55,7 +55,7 @@ class RideSelectionScreen extends StatelessWidget {
                 ListTile(
                   leading:
                       Icon(Icons.notification_important, color: Colors.pink),
-                  title: Text('push Notification',
+                  title: Text(' Notifications',
                       style: TextStyle(color: Colors.black)),
                   onTap: () {
                     // Get.toNamed(AppRoutes.pushnotification);
@@ -66,15 +66,16 @@ class RideSelectionScreen extends StatelessWidget {
                   title: Text('Booking History',
                       style: TextStyle(color: Colors.black)),
                   onTap: () {
-                    // Get.toNamed(AppRoutes.clientprofile);
+                    Get.toNamed(AppRoutes.bookinghistory);
                   },
                 ),
+
                 ListTile(
-                  leading:
-                      Icon(Icons.account_balance_wallet, color: Colors.pink),
-                  title: Text('Wallet', style: TextStyle(color: Colors.black)),
+                  leading: Icon(Icons.map, color: Colors.pink),
+                  title: Text('Track Ride',
+                      style: TextStyle(color: Colors.black)),
                   onTap: () {
-                    // Get.toNamed(AppRoutes.viewwallet);
+                    Get.toNamed(AppRoutes.trackride);
                   },
                 ),
                 ListTile(

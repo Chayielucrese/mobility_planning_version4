@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobility_planning_version4/Components/TextField.dart';
+import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/client_profile/client_profile_ctrl.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form/subscription_form_ctrl.dart';
 
@@ -16,7 +17,10 @@ class SubscribeNowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvoked: ((didpop){if(didpop){return;}else{Get.toNamed(AppRoutes.driverStats);}}),
+    child:Scaffold(
       appBar: AppBar(
         title: Text(
           "Subscribe Now",
@@ -82,6 +86,7 @@ class SubscribeNowPage extends StatelessWidget {
             ],
           ),
         ),
+      )
       ),
     );
   }

@@ -19,5 +19,8 @@ class AppRoutes {
   static String ridedetails = '/ridedetails';
   static String reservationscreen = '/reservationscreen';
   static String userwallet = '/userwallet';
-   static String walletrecharge = '/walletrecharge';
+  static String walletrecharge = '/walletrecharge';
+  static String waitingconfirmation = '/waitingconfirmation';
+  static String bookinghistory = '/bookinghistory';
+  static String trackride ='/trackride';
 }

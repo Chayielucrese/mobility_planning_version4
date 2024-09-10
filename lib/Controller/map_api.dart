@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
+
   const MapScreen({super.key});
 
   @override
@@ -10,7 +11,7 @@ class MapScreen extends StatefulWidget {
 
 class MapScreenState extends State<MapScreen> {
   static const _initialCameraPosition = CameraPosition(
-    target: LatLng(3.8480, 11.5021), 
+    target: LatLng(3.8480, 11.5021),
     zoom: 14.0,
   );
 
@@ -21,9 +22,8 @@ class MapScreenState extends State<MapScreen> {
         initialCameraPosition: _initialCameraPosition,
         myLocationButtonEnabled: false,
         zoomControlsEnabled: false,
+        
       ),
     );
   }
 }
-
-

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-
 import 'package:http/http.dart' as http;
 import 'package:mobility_planning_version4/Config/default_api_link.dart';
 import 'package:mobility_planning_version4/Controller/app_ctrl.dart';
 import 'package:mobility_planning_version4/Controller/token_ctrl.dart';
+import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_ctrl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +24,9 @@ class RequestFormController extends AppController {
   final advanceDestinationConroller = TextEditingController();
   final numberOfSeatsController = TextEditingController();
   String? reservationType = '';
-
+  String? result = '';
+  String pickUpPoint = "";
+  String destination = "";
   var pickupPointText = ''.obs;
   var rideName;
   get isInstantBooking => null; // RxString
@@ -81,10 +83,8 @@ class RequestFormController extends AppController {
     String time = timeController.text;
     String numberOfSeats = numberOfSeatsController.text;
     int? reservationId = await welcomeController.retriveReservationId();
-    print(
-        "${await welcomeController.retriveReservationId()}: hello ${await welcomeController.retrieveRideId()}");
+
     int? rideType = await welcomeController.retrieveRideId();
-    String? reservationType;
 
     print("$pickup_point: my reservation id $rideType: $reservationId: ");
 
@@ -100,10 +100,22 @@ class RequestFormController extends AppController {
             reservationType = "instant",
             reservationId!,
             rideType!);
+        print("helllllllo");
+        print("$pickup_point: IT WORKED $rideType: $reservationId: ");
 
         if (response.statusCode == 201) {
           final responseJson = json.decode(response.body);
-          alertSuccess("${responseJson['msg']}");
+          pickUpPoint = pickupPointController.text;
+          destination = destinationController.text;
+
+          print("$pickup_point: IT WORKED $rideType: $reservationId: ");
+
+          alertSuccess(responseJson['msg']);
+          Get.toNamed(AppRoutes.waitingconfirmation);
+        } else if (response.statusCode == 404) {
+          final errorJson = json.decode(response.body);
+
+          alertError(errorJson['msg']);
         } else {
           print("An error occurred: ${response.body}");
           final errorResponse = json.decode(response.body);

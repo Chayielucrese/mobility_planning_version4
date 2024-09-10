@@ -4,10 +4,17 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Account_Activation/activation_binding.dart';
 import 'package:mobility_planning_version4/Screens/Account_Activation/activation_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_ctrl.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_screen.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RequestForm/request_form_binding.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RequestForm/request_form_screen.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/ReservationWaitingPage/waiting_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/ReservationWaitingPage/wating_screen.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RideDetails/ride_detail_screen.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/RideDetails/ride_details_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Ride_tracking/tracking_binding.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Ride_tracking/tracking_screen.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_binding.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_screen.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/client_profile/Client_profile_binding.dart';
@@ -136,4 +143,20 @@ GetPage(
         name: AppRoutes.walletrecharge,
         page: () =>   WalletRechargePage(),
         binding: WalletRechargeBinding()),
+           GetPage(
+        name: AppRoutes.bookinghistory,
+        page: () =>   ClientBookingHistory(),
+        binding: ClientBookingHistoryBinding()),
+
+
+          GetPage(
+        name: AppRoutes.waitingconfirmation,
+        page: () =>    ReservationWaitingPage(),
+        binding: WaitngBinding()),
+
+
+           GetPage(
+        name: AppRoutes.trackride,
+        page: () =>    RideTrackingPage(),
+        binding: RideTrackingBinding()),
   ];}

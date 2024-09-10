@@ -22,8 +22,7 @@ class DriverSubscriptionPage extends StatelessWidget {
           backgroundColor: Colors.pink,
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        bottomNavigationBar:
-            buildBottomNavigation(AppRoutes.driversubscription),
+        bottomNavigationBar: buildBottomNavigation(AppRoutes.driversubscription),
         body: controller.subscriptionPlans.isEmpty
             ? Center(
                 child: CircularProgressIndicator(
@@ -39,11 +38,12 @@ class DriverSubscriptionPage extends StatelessWidget {
                     name: entry['name'],
                     price: entry['price'].toString(),
                     description: entry['description'],
+                // Pass subscription status
                     onPressed: () {
-                      Get.toNamed(AppRoutes.subscriptionform);
                       controller.getSubcriptionId(entry['id']);
                       controller.getSubcriptionName(entry['name']);
-                      print("helllo");
+                      controller.subscriptionSubmit();
+                      print("Subscription initiated");
                     },
                   );
                 },
@@ -57,6 +57,7 @@ Widget _buildSubscriptionCard({
   required String name,
   required String price,
   required String description,
+ // Add parameter for subscription status
   required VoidCallback onPressed,
 }) {
   return Card(
@@ -93,10 +94,10 @@ Widget _buildSubscriptionCard({
             children: [
               ElevatedButton(
                 onPressed: onPressed,
-                child: Text(
-                  'Subscribe Now',
-                  style: TextStyle(color: Colors.white),
-                ),
+              child:  Text(
+                   'Subscribe Now',
+                        style: TextStyle(color: Colors.white),
+                      ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink,
                 ),
