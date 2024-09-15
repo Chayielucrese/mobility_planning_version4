@@ -17,8 +17,8 @@ class WalletRechargeController extends AppController {
   Future<http.Response> rechargeWalletEndPoint(String amount) async {
     String? token = await tokenController.retriveToken();
 
-    return await http.put(
-      Uri.parse("${Config.apiUrl}/rechargeWallet"),
+    return await http.post(
+      Uri.parse("${Config.apiUrl}/transaction/recharge"),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
@@ -33,23 +33,23 @@ class WalletRechargeController extends AppController {
   Future<void> submitForm() async {
     String amount = amountController.text;
     final response = await rechargeWalletEndPoint(amount);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       final responseJson = json.decode(response.body);
-      alertSuccess("${responseJson['msg']}");
-      Get.toNamed(AppRoutes.driversubscription);
-      // showButtonFalse = responseJson['success'] != true;
-      // payment_url = responseJson['payment_url'];  
 
-amountController.clear();
-      // if (payment_url != null && payment_url!.isNotEmpty) {
-      //   await _launchUrl(payment_url!);
-      // }
+      // alertSuccess("${responseJson['msg']}");
+      // showButtonFalse = responseJson['success'] != true;
+      payment_url = responseJson['payment_url'];
+
+      if (payment_url != null && payment_url!.isNotEmpty) {
+        await _launchUrl(payment_url!);
+      }
+      amountController.clear();
     } else {
-      alertError("An error occurred, please try again later.");
+        print("Failed to get createReservation: ${response.statusCode}");
+
     }
   }
 
-  
   Future<void> _launchUrl(String url) async {
     final Uri paymentUri = Uri.parse(url);
     if (!await launchUrl(paymentUri)) {

@@ -17,7 +17,7 @@ class WalletRechargePage extends StatelessWidget {
         if (didpop) {
           return;
         } else {
-          Get.toNamed(AppRoutes.subscriptionform);
+          Get.toNamed(AppRoutes.driversubscription);
         }
       }),
       child: Scaffold(

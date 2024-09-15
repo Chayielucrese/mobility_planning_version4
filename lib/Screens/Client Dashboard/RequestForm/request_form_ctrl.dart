@@ -1,9 +1,6 @@
-import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:mobility_planning_version4/Config/default_api_link.dart';
 import 'package:mobility_planning_version4/Controller/app_ctrl.dart';
@@ -14,48 +11,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RequestFormController extends AppController {
   TokenController token = Get.put(TokenController());
-  ClientWelcomeController welcomeController =
-      Get.put(ClientWelcomeController());
+  ClientWelcomeController welcomeController = Get.put(ClientWelcomeController());
+
   final pickupPointController = TextEditingController();
   final destinationController = TextEditingController();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final advancePickupPointController = TextEditingController();
-  final advanceDestinationConroller = TextEditingController();
+  final advanceDestinationController = TextEditingController(); // Fixed typo here
   final numberOfSeatsController = TextEditingController();
+
   String? reservationType = '';
-  String? result = '';
   String pickUpPoint = "";
   String destination = "";
-  var pickupPointText = ''.obs;
-  var rideName;
-  get isInstantBooking => null; // RxString
 
   @override
   void onInit() {
     super.onInit();
-    rideName = retrieveRideName();
+    retrieveRideName(); // Removed unused variable
   }
 
   Future<http.Response> createReservation(
-      String? newToken,
-      String pickup_point,
-      String destination,
-      String date,
-      int numberOfSeats,
-      String time,
-      String reservationType,
-      int rideType_id,
-      int reservation_id) async {
+    String newToken,
+    String pickupPoint,
+    String destination,
+    String date,
+    int numberOfSeats,
+    String time,
+    String reservationType,
+    int rideTypeId,
+    int reservationId
+  ) async {
     return await http.post(
-      Uri.parse("${Config.apiUrl}/reserveVehicle/$reservation_id/$rideType_id"),
+      Uri.parse("${Config.apiUrl}/reserveVehicle/$reservationId/$rideTypeId"),
       headers: {
         'Authorization': 'Bearer $newToken',
         'Content-Type': 'application/json',
       },
       body: json.encode({
-        'pickup_point': pickup_point,
-        'destination': destination,
+        'pickup_point': pickupPoint.trim(),
+        'destination': destination.trim(),
         'time': time,
         'date': date,
         'reservation_type': reservationType,
@@ -67,91 +62,114 @@ class RequestFormController extends AppController {
   void getTokenAndCreateRequest() async {
     String? tokens = await token.retriveToken();
     if (tokens != null) {
-      SubmitForm(tokens);
+      submitForm(tokens);
     } else {
       print("No token found");
-      // Handle the case where the token is null
     }
   }
 
-  void SubmitForm(String Mytoken) async {
-    String pickup_point = pickupPointController.text;
-    String destination = destinationController.text;
-    String advance_pickup_point = advancePickupPointController.text;
-    String advance_destination = advanceDestinationConroller.text;
+  void submitForm(String token) async {
+    String pickupPoint = pickupPointController.text.trim();
+    String destination = destinationController.text.trim();
+    String advancePickupPoint = advancePickupPointController.text.trim();
+    String advanceDestination = advanceDestinationController.text.trim();
     String date = dateController.text;
     String time = timeController.text;
     String numberOfSeats = numberOfSeatsController.text;
+
     int? reservationId = await welcomeController.retriveReservationId();
+    int? rideTypeId = await welcomeController.retrieveRideId();
 
-    int? rideType = await welcomeController.retrieveRideId();
-
-    print("$pickup_point: my reservation id $rideType: $reservationId: ");
+    // Debugging prints to check values
+    print("Pickup Point: $pickupPoint, Destination: $destination");
+    print("Advance Pickup Point: $advancePickupPoint, Advance Destination: $advanceDestination");
+    print("RideTypeId: $rideTypeId, ReservationId: $reservationId");
 
     try {
-      if (pickup_point.isNotEmpty && destination.isNotEmpty) {
+      if (rideTypeId == null || reservationId == null) {
+        alertError("Ride type or reservation ID is missing.");
+        return;
+      }
+
+      if (pickupPoint.isNotEmpty && destination.isNotEmpty) {
+        reservationType = "instant";
+        print("Instant booking triggered");
+
         final response = await createReservation(
-            Mytoken,
-            pickup_point,
-            destination,
-            date,
-            int.parse(numberOfSeats),
-            time,
-            reservationType = "instant",
-            reservationId!,
-            rideType!);
-        print("helllllllo");
-        print("$pickup_point: IT WORKED $rideType: $reservationId: ");
+          token,
+          pickupPoint,
+          destination,
+          date,
+          int.parse(numberOfSeats),
+          time,
+          reservationType!,
+          rideTypeId,
+          reservationId
+        );
 
         if (response.statusCode == 201) {
           final responseJson = json.decode(response.body);
-          pickUpPoint = pickupPointController.text;
-          destination = destinationController.text;
-
-          print("$pickup_point: IT WORKED $rideType: $reservationId: ");
-
+          print("Instant reservation created successfully");
           alertSuccess(responseJson['msg']);
-          Get.toNamed(AppRoutes.waitingconfirmation);
-        } else if (response.statusCode == 404) {
-          final errorJson = json.decode(response.body);
-
-          alertError(errorJson['msg']);
+              //  Get.toNamed(AppRoutes.trackride);
+    Get.toNamed(AppRoutes.waitingconfirmation);
+          pickupPointController.clear();
+          destinationController.clear();
+          numberOfSeatsController.clear();
         } else {
-          print("An error occurred: ${response.body}");
-          final errorResponse = json.decode(response.body);
-          alertError('${errorResponse['msg']}');
+          handleErrorResponse(response);
         }
-      } else if (advance_pickup_point.isNotEmpty &&
-          advance_destination.isNotEmpty) {
+      } else if (advancePickupPoint.isNotEmpty && advanceDestination.isNotEmpty) {
+        reservationType = "advance";
+        print("Advance booking triggered");
+
         final response = await createReservation(
-            Mytoken,
-            advance_pickup_point,
-            advance_destination,
-            date,
-            int.parse(numberOfSeats),
-            time,
-            reservationType = "advance",
-            reservationId!,
-            rideType!);
+          token,
+          advancePickupPoint,
+          advanceDestination,
+          date,
+          int.parse(numberOfSeats),
+          time,
+          reservationType!,
+          rideTypeId,
+          reservationId
+        );
 
         if (response.statusCode == 201) {
           final responseJson = json.decode(response.body);
-          alertSuccess("${responseJson['msg']}");
+          print("Advance reservation created successfully");
+          alertSuccess(responseJson['msg']);
+          advanceDestinationController.clear();
+          advancePickupPointController.clear();
+          dateController.clear();
+          timeController.clear();
+                      Get.toNamed(AppRoutes.waitingconfirmation);
         } else {
-          print("An error occurred: ${response.body}");
-          final errorResponse = json.decode(response.body);
-          alertError('${errorResponse['msg']}');
+          handleErrorResponse(response);
         }
       } else {
         alertError("Fill in all required fields");
       }
     } catch (e) {
       print("Internal server error: ${e.toString()}");
-      alertError("An internal error occurred. Please try again. ${e}");
+      alertError("An internal error occurred. Please try again.");
     }
   }
 
-  void setBookingType(bool bool) {}
+  void handleErrorResponse(http.Response response) {
+    print("An error occurred: ${response.body}");
+    try {
+      final errorResponse = json.decode(response.body);
+      if (response.statusCode == 404) {
+        alertError(errorResponse['msg']);
+      } else {
+        alertError('${errorResponse['msg']}');
+      }
+    } catch (e) {
+      print("Internal server error: ${e.toString()}");
+      alertError("An internal error occurred. Please try again.");
+    }
+  }
 
   Future<String?> retrieveRideName() async {
     return await getRideType();
@@ -159,7 +177,22 @@ class RequestFormController extends AppController {
 
   Future<String?> getRideType() async {
     final pref = await SharedPreferences.getInstance();
-
-    return await pref.getString("rideType");
+    return pref.getString("rideType");
   }
+
+
+  @override
+  void onClose() {
+
+    advanceDestinationController.dispose();
+    advanceDestinationController.dispose();
+    dateController.dispose();
+    timeController.dispose();
+    pickupPointController.dispose();
+    destinationController.dispose();
+    numberOfSeatsController.dispose();
+ 
+    super.onClose();
+  }
+
 }

@@ -337,7 +337,7 @@ class ReservationScreen extends StatelessWidget {
                                     SizedBox(height: 20),
                                     GooglePlaceAutoCompleteTextField(
                                       textEditingController: controller
-                                          .advanceDestinationConroller,
+                                          .advancePickupPointController,
                                       googleAPIKey: GooglPlacesApi
                                           .apiUrl, // Replace with your API key
                                       inputDecoration: InputDecoration(
@@ -362,7 +362,7 @@ class ReservationScreen extends StatelessWidget {
                                       ], // Limit search to Cameroon
                                       isLatLngRequired: true,
                                       getPlaceDetailWithLatLng: (prediction) {
-                                        controller.advanceDestinationConroller
+                                        controller.advanceDestinationController
                                             .text = prediction.description!;
                                         print(
                                             "Destination: ${prediction.description}, lat: ${prediction.lat}, lng: ${prediction.lng}");

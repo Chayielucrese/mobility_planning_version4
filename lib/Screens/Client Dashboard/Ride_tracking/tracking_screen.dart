@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:mobility_planning_version4/Controller/map_api.dart';
+import 'package:get/get.dart';
+
+import 'package:mobility_planning_version4/Controller/real_time_tracking.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Ride_tracking/tracking_ctrl.dart';
 
 class RideTrackingPage extends StatelessWidget {
-  
+  RideTrackingController controller = Get.put(RideTrackingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,24 +17,9 @@ class RideTrackingPage extends StatelessWidget {
                 flex: 2,
                 child: Stack(
                   children: [
-                   const MapScreen(),
+                    RealTimeTracking(),
                    
-                    Positioned(
-                      top: 16,
-                      left: 16,
-                      child: Builder(builder: (context) {
-                        return GestureDetector(
-                          onTap: () {
-                            Scaffold.of(context).openDrawer();
-                          },
-                          child: CircleAvatar(
-                            radius: 24,
-                            backgroundColor: Colors.pink,
-                            child: Icon(Icons.menu, color: Colors.white),
-                          ),
-                        );
-                      }),
-                    ),
+                   
                   ],
                 ),
 

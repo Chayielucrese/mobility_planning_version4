@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mobility_planning_version4/Components/BottomNavigator.dart';
 import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Notifications/notification_ctrl.dart';
 
 class BookingNotificationsPage extends StatelessWidget {
-  const BookingNotificationsPage({super.key});
-
+   BookingNotificationsPage({super.key});
+NotifiicationController controller = Get.put(NotifiicationController());
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -42,18 +44,26 @@ class BookingNotificationsPage extends StatelessWidget {
   }
 
   Widget _buildReadMessagesTab() {
-    final readMessages = [
-      "Booking BOK-48 has been confirmed.",
-      "Your appointment at Gold Coast has been scheduled.",
-      "Booking BOK-46 has been completed.",
-      "Booking BOK-48 has been confirmed.",
-      "Your appointment at Gold Coast has been scheduled.",
-      "Booking BOK-46 has been completed.",
-    ];
+   
 
-    return ListView.builder(
-      itemCount: readMessages.length,
+    return Scaffold(
+      body: controller.notificationPlan.isEmpty
+          ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Center(
+                child: Text(
+                  'No Notifications available at the moment ',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ])
+    :ListView.builder(
+      itemCount: controller.notificationPlan.length,
+        
       itemBuilder: (context, index) {
+          final entry = controller.notificationPlan[index];
         return Card(
           elevation: 2,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -61,11 +71,22 @@ class BookingNotificationsPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Text(
-                  readMessages[index],
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 10),
+              Text(
+       "Name: ${entry['subject']}",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+           "${entry['content']}",
+            style: TextStyle(
+                fontSize: 16, color: Colors.pink, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 5),
+       
+          SizedBox(height: 10),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: IconButton(
@@ -80,7 +101,7 @@ class BookingNotificationsPage extends StatelessWidget {
           ),
         );
       },
-    );
+    ),);
   }
 
   void _showDeleteConfirmationDialog(
@@ -141,8 +162,21 @@ Widget _buildUnreadMessagesTab() {
     "Booking BOK-49 has been assigned to you.",
     "New message from Blue Theory.",
   ];
-
-  return ListView.builder(
+NotifiicationController controller = Get.put(NotifiicationController());
+  return Scaffold(
+      body: controller.notificationPlan.isEmpty
+          ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Center(
+                child: Text(
+                  'No unread Notifications',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ])
+  :ListView.builder(
     itemCount: unreadMessages.length,
     itemBuilder: (context, index) {
       return Card(
@@ -156,6 +190,6 @@ Widget _buildUnreadMessagesTab() {
           ),
         ),
       );
-    },
+    },),
   );
 }

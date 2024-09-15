@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "411406610979",
+    "project_id": "mobilityplanningapp",
+    "storage_bucket": "mobilityplanningapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411406610979:android:07f77bd7b0c8703c08f796",
+        "android_client_info": {
+          "package_name": "com.example.mobility_planning_version4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBxyD6R22xcx3eH1ZBoK5A4n-2qNJEamQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411406610979:android:47cd5ba599f8440808f796",
+        "android_client_info": {
+          "package_name": "com.example.mobilityplanning"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBxyD6R22xcx3eH1ZBoK5A4n-2qNJEamQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

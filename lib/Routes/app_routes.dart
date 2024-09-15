@@ -23,4 +23,8 @@ class AppRoutes {
   static String waitingconfirmation = '/waitingconfirmation';
   static String bookinghistory = '/bookinghistory';
   static String trackride ='/trackride';
+  static String pushnotification = '/pushnotification';
+  static String ticketsearch = '/ticketsearch';
+  static String departurelist = '/departurelist';
+  static String seatview = '/seatview';
 }

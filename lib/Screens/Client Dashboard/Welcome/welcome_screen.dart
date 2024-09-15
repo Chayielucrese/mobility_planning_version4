@@ -6,6 +6,7 @@ import 'package:mobility_planning_version4/Controller/map_api.dart';
 import 'package:mobility_planning_version4/Controller/token_ctrl.dart';
 import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Welcome/welcome_ctrl.dart';
+import 'package:mobility_planning_version4/Screens/Pushnotification/push_ctrl.dart';
 
 class ClientHomePage extends StatelessWidget {
   const ClientHomePage({super.key});
@@ -25,7 +26,10 @@ class RideSelectionScreen extends StatelessWidget {
   TokenController token = Get.put(TokenController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ClientWelcomeController>(
+    return  PopScope(
+      canPop: false,
+    
+    child: GetBuilder<ClientWelcomeController>(
       builder: (controller) => PopScope(
         canPop: false,
         child: Scaffold(
@@ -58,7 +62,7 @@ class RideSelectionScreen extends StatelessWidget {
                   title: Text(' Notifications',
                       style: TextStyle(color: Colors.black)),
                   onTap: () {
-                    // Get.toNamed(AppRoutes.pushnotification);
+           
                   },
                 ),
                 ListTile(
@@ -146,47 +150,58 @@ class RideSelectionScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         // Use Obx to reactively display ride options
-                        Obx(() {
-                          if (controller.rides.isEmpty) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.pink,
-                              ),
-                            );
-                            Center(
-                              child: Text("Not Rides Available"),
-                            );
-                          }
-                          return Column(
-                            children: controller.rides.map((entry) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showLoadingDialog(context);
-                                  controller.storeRideId(entry['id']);
-                                  controller.storeRideType(entry['name']);
-                                },
-                                child: RideOption(
-                                  rideType: entry['name'],
-                                  description: entry['description'],
-                                  price:
-                                      "0 FCFA", // You can adjust this if needed
-                                  icon: Icons
-                                      .directions_car, // You can change this based on ride type
-                                ),
-                              );
-                            }).toList(),
-                          );
-                        }),
+                       Obx(() {
+  if (controller.rides.isEmpty) {
+    return Center(
+      child: Row(
+        children: [
+          Text("Searching for Rides.."),
+          CircularProgressIndicator(
+            color: Colors.pink,
+          ),
+        ],
+      ),
+    );
+  }
+
+  return Column(
+    children: controller.rides.map((entry) {
+      // Assign icons based on ride types
+      IconData icon;
+      if (entry['name'] == 'Car') {
+        icon = Icons.directions_car;
+      } else if (entry['name'] == 'bike') {
+        icon = Icons.motorcycle;  // Motorbike icon
+      } else if (entry['name'] == 'book a Trip') {
+        icon = Icons.directions_bus;  // Bus icon
+      } else {
+        icon = Icons.directions_car;  // Default to car icon if no match
+      }
+
+      return GestureDetector(
+        onTap: () {
+          showLoadingDialog(context, entry['name']);
+          controller.storeRideId(entry['id']);
+          controller.storeRideType(entry['name'].toUpperCase());
+        },
+        child: RideOption(
+          rideType: entry['name'].toUpperCase(),
+          description: entry['description'],
+          price: "0 FCFA", // You can adjust this if needed
+          icon: icon, // Assign the correct icon
+        ),
+      );
+    }).toList(),
+  );
+}),
+
                         SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
+                           
                             PaymentOption(
-                              label: "With Wallet",
-                              icon: Icons.account_balance_wallet,
-                            ),
-                            PaymentOption(
-                              label: "With Cash",
+                              label: "Payment By Cash",
                               icon: Icons.money,
                             ),
                           ],
@@ -200,10 +215,11 @@ class RideSelectionScreen extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 
-  void showLoadingDialog(BuildContext context) {
+  void showLoadingDialog(BuildContext context, String rideType) {
     ClientWelcomeController controller = Get.put(ClientWelcomeController());
     controller.createReservation();
     showDialog(
@@ -237,7 +253,13 @@ class RideSelectionScreen extends StatelessWidget {
 
     Timer(const Duration(seconds: 5), () {
       Navigator.of(context).pop();
-      Get.toNamed(AppRoutes.reservationscreen);
+      if (rideType == 'book a Trip') {
+    // Navigate directly to the ticket search page for Bus rides
+    Get.toNamed(AppRoutes.ticketsearch);
+
+  }
+else{
+      Get.toNamed(AppRoutes.reservationscreen);}
     });
   }
 }

@@ -4,6 +4,12 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:mobility_planning_version4/Routes/app_routes.dart';
 import 'package:mobility_planning_version4/Screens/Account_Activation/activation_binding.dart';
 import 'package:mobility_planning_version4/Screens/Account_Activation/activation_screen.dart';
+import 'package:mobility_planning_version4/Screens/Bus%20Dashboard/DepartureList/departurelist_binding.dart';
+import 'package:mobility_planning_version4/Screens/Bus%20Dashboard/DepartureList/departurelist_screen.dart';
+import 'package:mobility_planning_version4/Screens/Bus%20Dashboard/SeatView/seateview_screen.dart';
+import 'package:mobility_planning_version4/Screens/Bus%20Dashboard/SeatView/seatview_binding.dart';
+import 'package:mobility_planning_version4/Screens/Bus%20Dashboard/TicketSearch/ticket_bonding.dart';
+import 'package:mobility_planning_version4/Screens/Bus%20Dashboard/TicketSearch/ticket_screen.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_binding.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_ctrl.dart';
 import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_screen.dart';
@@ -47,6 +53,8 @@ import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Welcome/we
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Welcome/welcome_screen.dart';
 import 'package:mobility_planning_version4/Screens/Login/login_binding.dart';
 import 'package:mobility_planning_version4/Screens/Login/login_screen.dart';
+import 'package:mobility_planning_version4/Screens/Pushnotification/push_binding.dart';
+import 'package:mobility_planning_version4/Screens/Pushnotification/push_not_screen.dart';
 import 'package:mobility_planning_version4/Screens/SignUp/signup_binding.dart';
 import 'package:mobility_planning_version4/Screens/SignUp/signup_screen.dart';
 import 'package:mobility_planning_version4/Screens/Welcome/welcome_binding.dart';
@@ -114,7 +122,7 @@ GetPage(
         binding: SubscriptionFormBinding()),
          GetPage(
         name: AppRoutes.drivernotification,
-        page: () =>    const BookingNotificationsPage(),
+        page: () =>     BookingNotificationsPage(),
         binding: NotifiicationBinding()),
    GetPage(
         name: AppRoutes.userwallet,
@@ -154,9 +162,25 @@ GetPage(
         page: () =>    ReservationWaitingPage(),
         binding: WaitngBinding()),
 
-
+    GetPage(
+        name: AppRoutes.pushnotification,
+        page: () =>   PushNotificationPage(),
+        binding: PushBinding()),
            GetPage(
         name: AppRoutes.trackride,
         page: () =>    RideTrackingPage(),
         binding: RideTrackingBinding()),
+          GetPage(
+        name: AppRoutes.ticketsearch,
+        page: () =>    BusTicketSearchPage(),
+        binding: BusTicketSearchBinding()),
+         GetPage(
+        name: AppRoutes.departurelist,
+        page: () =>    DepartureListPage(),
+        binding: DepartureListBinding()),
+ GetPage(
+        name: AppRoutes.seatview,
+        page: () =>    SeatViewPage(),
+        binding: SeatViewBinding()),
+        
   ];}

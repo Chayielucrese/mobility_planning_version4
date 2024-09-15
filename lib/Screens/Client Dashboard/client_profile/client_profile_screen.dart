@@ -65,7 +65,7 @@ class ClientProfilePage extends StatelessWidget {
                     right: 0,
                     child: IconButton(
                       icon:
-                          Icon(Icons.camera_alt, color: Colors.white, size: 30),
+                          const Icon(Icons.camera_alt, color: Colors.white, size: 30),
                       onPressed: () {
                         // Action for picking an image
                       },

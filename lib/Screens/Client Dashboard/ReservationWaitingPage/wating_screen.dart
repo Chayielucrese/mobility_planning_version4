@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobility_planning_version4/Routes/app_routes.dart';
 
 class ReservationWaitingPage extends StatelessWidget {
   // final String userName;
@@ -43,7 +44,7 @@ class ReservationWaitingPage extends StatelessWidget {
                 style: TextStyle(color: Colors.pink),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed('/');
+               Get.toNamed(AppRoutes.clientwelcome);
               },
             ),
           ],
