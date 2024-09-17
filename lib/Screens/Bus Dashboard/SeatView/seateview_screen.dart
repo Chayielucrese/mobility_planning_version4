@@ -7,8 +7,9 @@ class SeatViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seat View'),
+        title: Text('Seat View', style: TextStyle(color:Colors.white)),
         backgroundColor: Colors.pink,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -198,3 +199,4 @@ class SeatViewPage extends StatelessWidget {
     );
   }
 }
+//8692c1b1fb894b2c8f91d023df033ff9

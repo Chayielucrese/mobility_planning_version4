@@ -1,29 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:mobility_planning_version4/Screens/Client%20Dashboard/Booking_history/booking_ctrl.dart';
 class ClientBookingHistory extends StatelessWidget {
-  final List<Map<String, dynamic>> bookingHistory = [
-    {
-      'date': '2024-09-01',
-      'time': '12:00 PM',
-      'pickupLocation': 'Downtown',
-      'dropOffLocation': 'Airport',
-      'status': 'Completed'
-    },
-    {
-      'date': '2024-09-02',
-      'time': '03:30 PM',
-      'pickupLocation': 'Main Street',
-      'dropOffLocation': 'Mall',
-      'status': 'Cancelled'
-    },
-    {
-      'date': '2024-09-03',
-      'time': '09:00 AM',
-      'pickupLocation': 'Park Avenue',
-      'dropOffLocation': 'Office',
-      'status': 'Pending'
-    },
-  ];
+  final ClientBookingHistoryController controller = Get.put(ClientBookingHistoryController());
 
   ClientBookingHistory({super.key});
 
@@ -41,32 +20,41 @@ class ClientBookingHistory extends StatelessWidget {
             unselectedLabelColor: Colors.grey[400], // Color for unselected tabs
             indicatorColor: Colors.white, // Color for the tab indicator
             tabs: [
-              Tab(
-                  child:
-                      Text('Pending', style: TextStyle(color: Colors.white))),
-              Tab(
-                  child:
-                      Text('Cancelled', style: TextStyle(color: Colors.white))),
-              Tab(
-                  child:
-                      Text('Completed', style: TextStyle(color: Colors.white))),
+              Tab(child: Text('Pending', style: TextStyle(color: Colors.white))),
+              Tab(child: Text('Cancelled', style: TextStyle(color: Colors.white))),
+              Tab(child: Text('Completed', style: TextStyle(color: Colors.white))),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            _buildBookingList('Pending'),
-            _buildBookingList('Cancelled'),
-            _buildBookingList('Completed'),
+            _buildBookingList('pending'),
+            _buildBookingList('cancelled'),
+            _buildBookingList('complete'),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBookingList(String status) {
-    final filteredBookings =
-        bookingHistory.where((booking) => booking['status'] == status).toList();
+ Widget _buildBookingList(String status) {
+  ClientBookingHistoryController controller = Get.put(ClientBookingHistoryController());
+
+  return Obx(() {
+    if (controller.bookingPlan.isEmpty) {
+      return Column(
+mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Make sure you are connected"),
+          SizedBox(height: 20,),
+      Center(
+        child: CircularProgressIndicator(color: Colors.pink,),  // Show loading while fetching data
+      )]);
+    }
+
+    final filteredBookings = controller.bookingPlan
+        .where((booking) => booking['bookingStatus'] == status)
+        .toList();
 
     return filteredBookings.isEmpty
         ? Center(
@@ -74,7 +62,7 @@ class ClientBookingHistory extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/no_booking.png', // Add an image to show when list is empty
+                  'assets/city_driver.png', 
                   width: 200,
                   height: 200,
                 ),
@@ -106,37 +94,17 @@ class ClientBookingHistory extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Time: ${booking['time']}',
+                        'Time: ${booking['numberOfSeats']}',
                         style: TextStyle(fontSize: 16),
                       ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Pickup: ${booking['pickupLocation']}',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Drop-off: ${booking['dropOffLocation']}',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Status: ${booking['status']}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: booking['status'] == 'Completed'
-                              ? Colors.green
-                              : booking['status'] == 'Cancelled'
-                                  ? Colors.red
-                                  : Colors.orange,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      // Add more booking info...
                     ],
                   ),
                 ),
               );
             },
           );
-  }
+  });
+}
+
 }

@@ -23,12 +23,14 @@ class DepartureListPage extends StatelessWidget {
             child: Container(
               color: Colors.black.withOpacity(0.6), // Dark overlay with transparency
               alignment: Alignment.center,
-              child: Text(
-                'Departure Information',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              child: const Center(
+                child: Text(
+                  'MUSANGO DepartureList Information',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -42,7 +44,7 @@ class DepartureListPage extends StatelessWidget {
                 children: [
                   Text(
                     'Total 14 Bus(es) found',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, color: Colors.pink, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
                   Expanded(
@@ -88,13 +90,13 @@ class DepartureListPage extends StatelessWidget {
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('FCFA 10,000.00', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                    Text('FCFA 10,000.00', style: TextStyle(fontSize: 16, color:Colors.pink, fontWeight: FontWeight.bold)),
                                     ElevatedButton(
                                       onPressed: () {
                                         // Handle View Seat action
                                         Get.toNamed(AppRoutes.seatview);
                                       },
-                                      child: Text('View Seat'),
+                                      child: Text('View Seat', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.pink, // Button color
                                       ),

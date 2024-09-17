@@ -22,9 +22,10 @@ class RequestFormController extends AppController {
   final numberOfSeatsController = TextEditingController();
 
   String? reservationType = '';
-  String pickUpPoint = "";
-  String destination = "";
-
+  String? pickUpPoint = "";
+  String? destination = "";
+  String PickupPointCoordinates ='';
+  String DestinationCoordinates= '';
   @override
   void onInit() {
     super.onInit();
@@ -184,8 +185,8 @@ class RequestFormController extends AppController {
   @override
   void onClose() {
 
-    advanceDestinationController.dispose();
-    advanceDestinationController.dispose();
+
+
     dateController.dispose();
     timeController.dispose();
     pickupPointController.dispose();

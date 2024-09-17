@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobility_planning_version4/Config/default_api_link.dart';
 import 'package:mobility_planning_version4/Controller/app_ctrl.dart';
 import 'package:mobility_planning_version4/Controller/token_ctrl.dart';
-import 'package:mobility_planning_version4/Routes/app_routes.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class WalletRechargeController extends AppController {
