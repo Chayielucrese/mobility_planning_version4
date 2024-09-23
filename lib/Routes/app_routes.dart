@@ -27,4 +27,5 @@ class AppRoutes {
   static String ticketsearch = '/ticketsearch';
   static String departurelist = '/departurelist';
   static String seatview = '/seatview';
+  static String subscriptiondetails = '/subscriptiondetails';
 }

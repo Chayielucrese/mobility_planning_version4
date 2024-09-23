@@ -68,19 +68,21 @@ class SubscriptionFormController extends AppController {
   Future<void> submitForm() async {
     final response = await performSubscription();
     if (response.statusCode == 200) {
-      final responsejson = json.decode(response.body);
-      alertSuccess('${responsejson['msg']}');
+      Get.toNamed(AppRoutes.subscriptiondetails);
     } else if (response.statusCode == 404) {
       Get.toNamed(AppRoutes.userwallet);
       final erroJson = json.decode(response.body);
       alertError("${erroJson['msg']}");
-    } 
-    else if (response.statusCode == 400) {
+    } else if (response.statusCode == 400) {
       Get.toNamed(AppRoutes.walletrecharge);
       final erroJson = json.decode(response.body);
       alertError("${erroJson['msg']}");
-    }
-    else {
+    } else if (response.statusCode == 201) {
+      final responsejson = json.decode(response.body);
+      alertSuccess('${responsejson['msg']}');
+
+      Get.toNamed(AppRoutes.subscriptiondetails);
+    } else {
       final erroJson = json.decode(response.body);
       alertError("${erroJson['msg']}");
     }

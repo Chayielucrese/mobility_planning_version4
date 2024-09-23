@@ -45,8 +45,7 @@ class WalletRechargeController extends AppController {
       }
       amountController.clear();
     } else {
-        print("Failed to get createReservation: ${response.statusCode}");
-
+      print("Failed to get createReservation: ${response.statusCode}");
     }
   }
 
@@ -57,3 +56,4 @@ class WalletRechargeController extends AppController {
     }
   }
 }
+

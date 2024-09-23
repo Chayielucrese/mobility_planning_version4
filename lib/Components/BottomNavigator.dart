@@ -12,7 +12,7 @@ List<String> pages = [
   AppRoutes.driverStats,
   AppRoutes.viewvehicle,
   AppRoutes.driverrequest,
-  AppRoutes.driversubscription,
+  AppRoutes.subscriptiondetails,
   AppRoutes.drivernotification
 ];
 
@@ -29,12 +29,7 @@ Widget buildBottomNavigation(String goto) {
             'Your documents are not verified. You cannot access the Re quest page.',
             snackPosition: SnackPosition.TOP,
             backgroundColor: const Color.fromARGB(255, 247, 160, 186));
-      } else if(i==3 && subscriptionController.hasSubscribe == true){
-         Get.snackbar('Fail to Subscribe',
-            'Your last subsription is still active.',
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: const Color.fromARGB(255, 247, 160, 186));
-      }
+      } 
       
       else {
         // Only navigate if the condition is not met

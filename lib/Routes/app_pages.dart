@@ -37,6 +37,7 @@ import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscripti
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subcription_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form/subscription_form_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Subscription/subscription_form/subscription_form_screen.dart';
+import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/SubscriptionDetails/deatail_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Upload/upload_binding.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Upload/upload_screen.dart';
 import 'package:mobility_planning_version4/Screens/Driver%20Dashboard/Vehicles/vehicle_binding.dart';
@@ -59,6 +60,8 @@ import 'package:mobility_planning_version4/Screens/SignUp/signup_binding.dart';
 import 'package:mobility_planning_version4/Screens/SignUp/signup_screen.dart';
 import 'package:mobility_planning_version4/Screens/Welcome/welcome_binding.dart';
 import 'package:mobility_planning_version4/Screens/Welcome/welcome_screen.dart';
+
+import '../Screens/Driver Dashboard/SubscriptionDetails/detail_screen.dart';
 
 class AppPages {
   static final pages = [
@@ -182,5 +185,9 @@ GetPage(
         name: AppRoutes.seatview,
         page: () =>    SeatViewPage(),
         binding: SeatViewBinding()),
+         GetPage(
+        name: AppRoutes.subscriptiondetails,
+        page: () =>    const SubscriptionDetailPage(),
+        binding: SubscriptionDetailBinding()),
         
   ];}
